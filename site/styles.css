@@ -122,7 +122,7 @@ button { font: inherit; color: inherit; }
 
 /* Trois classements côte à côte */
 .boards { display: block; }
-.card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg); width: 100%; }
+.card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; overflow-x: auto; background: var(--bg); width: 100%; }
 .card-head { display: flex; align-items: baseline; justify-content: space-between; padding: 16px 16px 12px; }
 .card-head h2 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
 .card-count { color: var(--fg-faint); font-size: 12.5px; }
@@ -243,13 +243,17 @@ td.stat .v, td.stat .r, td.ratio-col .r { display: inline-block; min-width: 3ch;
 td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
 .detail td.stat, .detail td.mj { text-align: center !important; }
 
+/* Fenêtre étroite sur ordinateur : largeur minimale, le tableau défile au lieu d'écraser Joueur/Club */
+.board { min-width: 860px; }
+.board.with-ratios { min-width: 1120px; }
+
 /* Chaque valeur centrée sous le titre de sa colonne (plus de largeur minimale alignée à droite) */
 .board td.stat .v, .board td.stat .r, .board td.ratio-col .r, .board td.mj .v { display: inline; min-width: 0; width: auto; margin: 0; text-align: center; }
 .board th.rank, .board td.rank { text-align: center; padding-left: 6px !important; padding-right: 6px; }
 .detail td.stat, .detail td.mj { text-align: center !important; }
 
-/* ——— Mobile (≤ 720 px) ——— */
-@media (max-width: 720px) {
+/* ——— Mobile (≤ 720 px de large, ou téléphone en paysage : ≤ 500 px de haut) ——— */
+@media (max-width: 720px), (max-height: 500px) {
   .wrap { padding: 0 16px; }
   .topbar-inner { height: 48px; }
   .toolbar { height: auto; min-height: 36px; flex-wrap: wrap; gap: 4px 8px; padding: 4px 4px 4px 12px; margin: 14px 0 10px; }
@@ -261,6 +265,7 @@ td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
   .menu-panel.menu-left { min-width: 0; max-height: 60vh; }
   /* Avec les ratios, 6 colonnes chiffrées : le tableau défile horizontalement dans sa carte */
   .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .board, .board.with-ratios { min-width: 0; }
   .board th, .board td { padding: 0 2px; text-overflow: clip; }
   .board th:first-child, .board td:first-child { padding-left: 6px; }
   .board th.rank, .board td.rank { padding-left: 2px !important; padding-right: 2px; }

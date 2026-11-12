@@ -166,7 +166,8 @@ const STATS = [
 const W_DESK = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92, toggle: 36 };
 /* Mobile : colonne Club fusionnée sous le nom du joueur, colonnes chiffrées resserrées. */
 const W_MOB = { rank: 22, mj: 26, stat: 34, total: 26, ratio: 30, toggle: 14 };
-const mq = matchMedia("(max-width: 720px)");
+/* Mobile = écran étroit, ou téléphone en paysage (peu de hauteur). Garder en phase avec styles.css. */
+const mq = matchMedia("(max-width: 720px), (max-height: 500px)");
 const mobile = () => mq.matches;
 const Wd = () => (mobile() ? W_MOB : W_DESK);
 /* Colonnes affichées : cases à cocher de la barre de filtre (au moins une stat), ratios en option. */
