@@ -170,15 +170,19 @@ const W_MOB = { rank: 22, mj: 26, stat: 34, total: 26, ratio: 30, toggle: 14 };
 /* Mobile = écran étroit, ou téléphone en paysage (peu de hauteur). Garder en phase avec styles.css. */
 const mq = matchMedia("(max-width: 720px), (max-height: 500px)");
 const mobile = () => mq.matches;
+/* Portrait étroit : la colonne Club · Nationalité est fusionnée sous le nom (écusson + drapeau).
+   En paysage, elle reste une colonne à part, comme sur ordinateur. */
+const mqMerge = matchMedia("(max-width: 720px) and (orientation: portrait)");
+const merged = () => mqMerge.matches;
 const Wd = () => (mobile() ? W_MOB : W_DESK);
 /* Colonnes affichées : cases à cocher de la barre de filtre (au moins une stat), ratios en option. */
 const view = () => ({ stats: STATS.map((x) => x.metric).filter((m) => state.stats.has(m)), ratios: state.ratios });
 const shown = () => STATS.filter((x) => state.stats.has(x.metric));
 Object.defineProperty(state, "showRatios", { get: () => state.ratios });
 const statCols = () => { const W = Wd(); return state.showRatios ? [W.total, W.ratio] : [W.stat]; };
-const colsHtml = (W = Wd()) => `<colgroup><col style="width:${W.rank}px"><col class="c-flex">${mobile() ? "" : `<col class="c-flex">`}<col style="width:${state.showRatios ? W.total : W.mj}px">${
+const colsHtml = (W = Wd()) => `<colgroup><col style="width:${W.rank}px"><col class="c-flex">${merged() ? "" : `<col class="c-flex">`}<col style="width:${state.showRatios ? W.total : W.mj}px">${
   shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}${mobile() ? "" : `<col style="width:${W.toggle}px">`}</colgroup>`;
-const span = () => (mobile() ? 3 : 5) + shown().length * statCols().length;
+const span = () => 5 - (merged() ? 1 : 0) - (mobile() ? 1 : 0) + shown().length * statCols().length;
 
 /* Totaux toujours affichés ; le ratio (sous-colonne « / match ») seulement si coché dans « Statistiques »,
    y compris dans la ligne dépliée. */
@@ -229,10 +233,10 @@ function rowHtml(e) {
   <tr class="row" tabindex="0" data-id="${esc(p.id)}" aria-expanded="${open}">
     <td class="rank${e.rank <= 3 ? " podium" : ""}">${e.rank}</td>
     <td><div class="player"><div class="player-text">
-      <span class="player-name">${esc(p.name)}</span>${mobile()
+      <span class="player-name">${esc(p.name)}</span>${merged()
         ? `<span class="player-club">${clubCell(p.clubs)}${flag(p.flag, countryName(p))}</span>`
         : `<span class="player-meta">${esc(meta)}</span>`}</div></div></td>
-    ${mobile() ? "" : `<td>${clubAndCountry(p)}</td>`}
+    ${merged() ? "" : `<td>${clubAndCountry(p)}</td>`}
     <td class="num mj" title="${esc(matchesTitle(p))}"><span class="v">${p.matches}</span></td>
     ${statCells(p)}
     ${mobile() ? "" : `<td><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></td>`}
@@ -243,7 +247,7 @@ function rowHtml(e) {
       ${p.breakdown.map((b) => `<tr class="${S.row(b, C) ? "" : "out"}">
         <td></td>
         <td><div class="league">${compIcon(b.comp)}<span class="league-name">${esc(C[b.comp]?.name || b.comp)}</span></div></td>
-        ${mobile() ? "" : `<td>${b.club ? clubCell([b.club]) : ""}</td>`}
+        ${merged() ? "" : `<td>${b.club ? clubCell([b.club]) : ""}</td>`}
         <td class="num mj" title="${esc(matchesTitle(b))}"><span class="v">${b.matches}</span></td>
         ${statCells(b, true)}
         ${mobile() ? "" : "<td></td>"}</tr>`).join("")}
@@ -271,7 +275,7 @@ function render() {
   <section class="card">
     <table class="board${state.showRatios ? " with-ratios" : ""}">${colsHtml()}
       <thead>
-        <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th>${mobile() ? "" : `<th scope="col">Club · Nationalité</th>`}
+        <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th>${merged() ? "" : `<th scope="col">Club · Nationalité</th>`}
           <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}${mobile() ? "" : `<th><span class="sr-only">Détail</span></th>`}</tr>
       </thead>
       <tbody>${top.length ? top.map(rowHtml).join("") : `<tr class="empty"><td colspan="${span()}">Aucun joueur pour le moment.</td></tr>`}</tbody>
@@ -390,4 +394,4 @@ async function main() {
 main();
 
 /* Passage ordinateur ↔ mobile (rotation, redimensionnement) : on redessine le tableau. */
-mq.addEventListener("change", () => { if (state.data) render(); });
+for (const m of [mq, mqMerge]) m.addEventListener("change", () => { if (state.data) render(); });

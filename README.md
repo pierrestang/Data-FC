@@ -3,7 +3,7 @@
 Classements des meilleurs buteurs et passeurs des cinq grands championnats européens
 (Premier League, La Liga, Serie A, Bundesliga, Ligue 1) et des trois coupes d'Europe
 (Champions League, Europa League, Conference League), saison en cours.
-Ordinateur et mobile : sous 720 px de large (ou 500 px de haut, téléphone en paysage), le club passe sous le nom du joueur (écusson + drapeau seuls en portrait),
+Ordinateur et mobile : sous 720 px de large (ou 500 px de haut, téléphone en paysage), en portrait le club passe sous le nom du joueur (écusson + drapeau seuls), en paysage la colonne Club · Nationalité reste ;
 en-têtes abrégés et colonnes resserrées pour tout faire tenir dans l’écran, ratios compris.
 
 En ligne : https://pierrestang.github.io/Data-FC/
