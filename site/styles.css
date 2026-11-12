@@ -243,6 +243,11 @@ td.stat .v, td.stat .r, td.ratio-col .r { display: inline-block; min-width: 3ch;
 td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
 .detail td.stat, .detail td.mj { text-align: center !important; }
 
+/* Chaque valeur centrée sous le titre de sa colonne (plus de largeur minimale alignée à droite) */
+.board td.stat .v, .board td.stat .r, .board td.ratio-col .r, .board td.mj .v { display: inline; min-width: 0; width: auto; margin: 0; text-align: center; }
+.board th.rank, .board td.rank { text-align: center; padding-left: 6px !important; padding-right: 6px; }
+.detail td.stat, .detail td.mj { text-align: center !important; }
+
 /* ——— Mobile (≤ 720 px) ——— */
 @media (max-width: 720px) {
   .wrap { padding: 0 16px; }
@@ -258,6 +263,7 @@ td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
   .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .board th, .board td { padding: 0 2px; text-overflow: clip; }
   .board th:first-child, .board td:first-child { padding-left: 6px; }
+  .board th.rank, .board td.rank { padding-left: 2px !important; padding-right: 2px; }
   .board th:last-child, .board td:last-child { padding-right: 4px; }
   .board td:nth-child(2) { text-overflow: ellipsis; }
   .board th.sortable, .board td.stat, .board th.mj, .board td.mj { padding-left: 0; padding-right: 0; }
