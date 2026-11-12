@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1200">
+  <title>Data FC</title>
+  <meta name="description" content="Meilleurs buteurs et passeurs des cinq grands championnats européens réunis.">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    try { if (localStorage.getItem("dfc-theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="./">
+        <img class="brand-mark" src="assets/logo.png" alt="" width="24" height="24">
+        <span>Data FC</span>
+      </a>
+      <nav class="topbar-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Basculer le thème">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1 class="sr-only">Classements buteurs et passeurs</h1>
+
+    <div class="notice" id="demo-notice" hidden>
+      <strong>Données de démonstration.</strong> Les chiffres sont fictifs, en attendant le branchement de la récupération FBref.
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <span class="season" id="season">Saison en cours</span>
+        <details class="menu" id="scope-menu">
+          <summary class="menu-btn" id="scope-btn">Toutes compétitions</summary>
+          <div class="menu-panel menu-left" id="scope" role="radiogroup" aria-label="Compétition"></div>
+        </details>
+      </div>
+      <details class="menu" id="cols-menu">
+        <summary class="menu-btn">Statistiques</summary>
+        <div class="menu-panel" role="group" aria-label="Colonnes affichées">
+          <label><input type="checkbox" data-stat="goals" checked> Buts</label>
+          <label><input type="checkbox" data-stat="assists" checked> Passes</label>
+          <label><input type="checkbox" data-stat="ga" checked> Total</label>
+          <hr>
+          <label><input type="checkbox" id="opt-ratios"> / match</label>
+        </div>
+      </details>
+    </div>
+
+    <div class="boards" id="boards"></div>
+
+    <footer class="foot">
+      <a id="source-link" href="https://www.espn.com/soccer/" target="_blank" rel="noopener">Source : ESPN</a>
+      <span aria-hidden="true">·</span>
+      <span class="updated" id="updated">Mise à jour : …</span>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
