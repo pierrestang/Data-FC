@@ -175,8 +175,8 @@ const shown = () => STATS.filter((x) => state.stats.has(x.metric));
 Object.defineProperty(state, "showRatios", { get: () => state.ratios });
 const statCols = () => { const W = Wd(); return state.showRatios ? [W.total, W.ratio] : [W.stat]; };
 const colsHtml = (W = Wd()) => `<colgroup><col style="width:${W.rank}px"><col class="c-flex">${mobile() ? "" : `<col class="c-flex">`}<col style="width:${state.showRatios ? W.total : W.mj}px">${
-  shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}<col style="width:${W.toggle}px"></colgroup>`;
-const span = () => (mobile() ? 4 : 5) + shown().length * statCols().length;
+  shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}${mobile() ? "" : `<col style="width:${W.toggle}px">`}</colgroup>`;
+const span = () => (mobile() ? 3 : 5) + shown().length * statCols().length;
 
 /* Totaux toujours affichés ; le ratio (sous-colonne « / match ») seulement si coché dans « Statistiques »,
    y compris dans la ligne dépliée. */
@@ -233,7 +233,7 @@ function rowHtml(e) {
     ${mobile() ? "" : `<td>${clubAndCountry(p)}</td>`}
     <td class="num mj" title="${esc(matchesTitle(p))}"><span class="v">${p.matches}</span></td>
     ${statCells(p)}
-    <td><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></td>
+    ${mobile() ? "" : `<td><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></td>`}
   </tr>`;
   if (open) {
     const C = state.data.competitions, S = scopeOf(state.scope);
@@ -244,7 +244,7 @@ function rowHtml(e) {
         ${mobile() ? "" : `<td>${b.club ? clubCell([b.club]) : ""}</td>`}
         <td class="num mj" title="${esc(matchesTitle(b))}"><span class="v">${b.matches}</span></td>
         ${statCells(b, true)}
-        <td></td></tr>`).join("")}
+        ${mobile() ? "" : "<td></td>"}</tr>`).join("")}
     </tbody></table></td></tr>`;
   }
   return html;
@@ -270,7 +270,7 @@ function render() {
     <table class="board${state.showRatios ? " with-ratios" : ""}">${colsHtml()}
       <thead>
         <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th>${mobile() ? "" : `<th scope="col">Club · Nationalité</th>`}
-          <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}<th><span class="sr-only">Détail</span></th></tr>
+          <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}${mobile() ? "" : `<th><span class="sr-only">Détail</span></th>`}</tr>
       </thead>
       <tbody>${top.length ? top.map(rowHtml).join("") : `<tr class="empty"><td colspan="${span()}">Aucun joueur pour le moment.</td></tr>`}</tbody>
     </table>
