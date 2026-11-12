@@ -128,7 +128,7 @@ button { font: inherit; color: inherit; }
 .card-count { color: var(--fg-faint); font-size: 12.5px; }
 
 .board { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
-.c-rank { width: 44px; } .c-player { width: 220px; } .c-club { width: 210px; } .c-mj { width: 64px; } .c-stat { width: 120px; } .c-toggle { width: 36px; }
+.c-rank { width: 44px; } .c-player { width: 220px; } .c-club { width: 210px; } .c-mj { width: 64px; } .c-stat { width: 120px; }
 .board th, .board td { padding: 0 6px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .board th:first-child, .board td:first-child { padding-left: 16px; }
 .board th:last-child, .board td:last-child { padding-right: 16px; }
@@ -159,8 +159,6 @@ td.stat .v.on { font-weight: 600; font-size: 15px; }
 .detail td.stat .v { font-size: 12.5px; color: var(--fg-muted); }
 .detail td.stat .v.on { font-size: 12.5px; color: var(--fg); }
 .detail td.stat .r { font-size: 10.5px; }
-.chev { width: 16px; height: 16px; fill: none; stroke: var(--fg-faint); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .18s ease; display: block; margin-left: auto; }
-.row[aria-expanded="true"] .chev { transform: rotate(180deg); stroke: var(--fg); }
 .player-meta { color: var(--fg-faint); font-size: 12px; }
 .club { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--fg); }
 .club .crest, .club .crest-fallback { width: 20px; height: 20px; }
@@ -286,7 +284,6 @@ td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
   .player-club .club { gap: 5px; color: var(--fg-muted); font-size: 12px; min-width: 0; }
   .player-club .club .crest, .player-club .club .crest-fallback { width: 14px; height: 14px; }
   .player-club .flag { width: 16px; height: 12px; }
-  .chev { width: 14px; height: 14px; }
   .league { padding-left: 22px; gap: 6px; }
   .league::before { left: 6px; }
   .detail td:first-child { padding-left: 4px; }

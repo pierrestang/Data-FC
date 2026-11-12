@@ -164,9 +164,9 @@ const STATS = [
 ];
 /* Largeurs (px). En « Totaux + ratios », chaque stat a deux sous-colonnes (total | ratio),
    pour que la surbrillance du tri ne couvre que la partie choisie. */
-const W_DESK = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92, toggle: 36 };
+const W_DESK = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92 };
 /* Mobile : colonne Club fusionnée sous le nom du joueur, colonnes chiffrées resserrées. */
-const W_MOB = { rank: 22, mj: 26, stat: 34, total: 26, ratio: 30, toggle: 14 };
+const W_MOB = { rank: 22, mj: 26, stat: 34, total: 26, ratio: 30 };
 /* Mobile = écran étroit, ou téléphone en paysage (peu de hauteur). Garder en phase avec styles.css. */
 const mq = matchMedia("(max-width: 720px), (max-height: 500px)");
 const mobile = () => mq.matches;
@@ -181,8 +181,8 @@ const shown = () => STATS.filter((x) => state.stats.has(x.metric));
 Object.defineProperty(state, "showRatios", { get: () => state.ratios });
 const statCols = () => { const W = Wd(); return state.showRatios ? [W.total, W.ratio] : [W.stat]; };
 const colsHtml = (W = Wd()) => `<colgroup><col style="width:${W.rank}px"><col class="c-flex">${merged() ? "" : `<col class="c-flex">`}<col style="width:${state.showRatios ? W.total : W.mj}px">${
-  shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}${mobile() ? "" : `<col style="width:${W.toggle}px">`}</colgroup>`;
-const span = () => 5 - (merged() ? 1 : 0) - (mobile() ? 1 : 0) + shown().length * statCols().length;
+  shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}</colgroup>`;
+const span = () => 4 - (merged() ? 1 : 0) + shown().length * statCols().length;
 
 /* Totaux toujours affichés ; le ratio (sous-colonne « / match ») seulement si coché dans « Statistiques »,
    y compris dans la ligne dépliée. */
@@ -239,7 +239,6 @@ function rowHtml(e) {
     ${merged() ? "" : `<td>${clubAndCountry(p)}</td>`}
     <td class="num mj" title="${esc(matchesTitle(p))}"><span class="v">${p.matches}</span></td>
     ${statCells(p)}
-    ${mobile() ? "" : `<td><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></td>`}
   </tr>`;
   if (open) {
     const C = state.data.competitions, S = scopeOf(state.scope);
@@ -250,7 +249,7 @@ function rowHtml(e) {
         ${merged() ? "" : `<td>${b.club ? clubCell([b.club]) : ""}</td>`}
         <td class="num mj" title="${esc(matchesTitle(b))}"><span class="v">${b.matches}</span></td>
         ${statCells(b, true)}
-        ${mobile() ? "" : "<td></td>"}</tr>`).join("")}
+</tr>`).join("")}
     </tbody></table></td></tr>`;
   }
   return html;
@@ -276,7 +275,7 @@ function render() {
     <table class="board${state.showRatios ? " with-ratios" : ""}">${colsHtml()}
       <thead>
         <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th>${merged() ? "" : `<th scope="col">Club · Nationalité</th>`}
-          <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}${mobile() ? "" : `<th><span class="sr-only">Détail</span></th>`}</tr>
+          <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}</tr>
       </thead>
       <tbody>${top.length ? top.map(rowHtml).join("") : `<tr class="empty"><td colspan="${span()}">Aucun joueur pour le moment.</td></tr>`}</tbody>
     </table>
