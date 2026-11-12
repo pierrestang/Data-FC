@@ -174,14 +174,18 @@ const mobile = () => mq.matches;
    En paysage, elle reste une colonne à part, comme sur ordinateur. */
 const mqMerge = matchMedia("(max-width: 720px) and (orientation: portrait)");
 const merged = () => mqMerge.matches;
-const Wd = () => (mobile() ? W_MOB : W_DESK);
+/* Paysage mobile : mêmes proportions de colonnes que sur ordinateur (largeurs web ramenées en %
+   d'un tableau de référence de 1280 px), au lieu des colonnes resserrées du portrait. */
+const land = () => mobile() && !merged();
+const Wd = () => (mobile() && !land() ? W_MOB : W_DESK);
+const px = (w) => (land() ? `${(w / 12.8).toFixed(2)}%` : `${w}px`);
 /* Colonnes affichées : cases à cocher de la barre de filtre (au moins une stat), ratios en option. */
 const view = () => ({ stats: STATS.map((x) => x.metric).filter((m) => state.stats.has(m)), ratios: state.ratios });
 const shown = () => STATS.filter((x) => state.stats.has(x.metric));
 Object.defineProperty(state, "showRatios", { get: () => state.ratios });
 const statCols = () => { const W = Wd(); return state.showRatios ? [W.total, W.ratio] : [W.stat]; };
-const colsHtml = (W = Wd()) => `<colgroup><col style="width:${W.rank}px"><col class="c-flex">${merged() ? "" : `<col class="c-flex">`}<col style="width:${state.showRatios ? W.total : W.mj}px">${
-  shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}</colgroup>`;
+const colsHtml = (W = Wd()) => `<colgroup><col style="width:${px(W.rank)}"><col class="c-flex">${merged() ? "" : `<col class="c-flex">`}<col style="width:${px(state.showRatios ? W.total : W.mj)}">${
+  shown().map(() => statCols().map((w) => `<col style="width:${px(w)}">`).join("")).join("")}</colgroup>`;
 const span = () => 4 - (merged() ? 1 : 0) + shown().length * statCols().length;
 
 /* Totaux toujours affichés ; le ratio (sous-colonne « / match ») seulement si coché dans « Statistiques »,
@@ -272,7 +276,7 @@ function render() {
   };
   $("#boards").innerHTML = `
   <section class="card">
-    <table class="board${state.showRatios ? " with-ratios" : ""}">${colsHtml()}
+    <table class="board${state.showRatios ? " with-ratios" : ""}${land() ? " land" : ""}">${colsHtml()}
       <thead>
         <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th>${merged() ? "" : `<th scope="col">Club · Nationalité</th>`}
           <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}</tr>

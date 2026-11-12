@@ -316,3 +316,15 @@ td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
   .player-club { gap: 6px; }
   .detail .club .club-name { display: none; }
 }
+
+/* Paysage mobile : espacements de la version ordinateur */
+@media (max-width: 720px), (max-height: 500px) {
+  .board.land th, .board.land td { padding: 0 6px; }
+  .board.land th:first-child, .board.land td:first-child { padding-left: 16px; }
+  .board.land th:last-child, .board.land td:last-child { padding-right: 16px; }
+  .board.land th.rank, .board.land td.rank { padding-left: 6px !important; padding-right: 6px; }
+  .board.land th.sortable, .board.land td.stat, .board.land th.mj, .board.land td.mj { padding-left: 6px; padding-right: 6px; }
+  .board.land th.sorted, .board.land td.sorted { --in: 12px; }
+  .board.land.with-ratios th.sorted, .board.land.with-ratios td.sorted { --in: 4px; }
+  .board.land .detail td:first-child { padding-left: 16px; }
+}
