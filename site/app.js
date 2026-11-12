@@ -163,15 +163,20 @@ const STATS = [
 ];
 /* Largeurs (px). En « Totaux + ratios », chaque stat a deux sous-colonnes (total | ratio),
    pour que la surbrillance du tri ne couvre que la partie choisie. */
-const W = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92, toggle: 36 };
+const W_DESK = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92, toggle: 36 };
+/* Mobile : colonne Club fusionnée sous le nom du joueur, colonnes chiffrées resserrées. */
+const W_MOB = { rank: 30, mj: 40, stat: 46, total: 42, ratio: 46, toggle: 22 };
+const mq = matchMedia("(max-width: 720px)");
+const mobile = () => mq.matches;
+const Wd = () => (mobile() ? W_MOB : W_DESK);
 /* Colonnes affichées : cases à cocher de la barre de filtre (au moins une stat), ratios en option. */
 const view = () => ({ stats: STATS.map((x) => x.metric).filter((m) => state.stats.has(m)), ratios: state.ratios });
 const shown = () => STATS.filter((x) => state.stats.has(x.metric));
 Object.defineProperty(state, "showRatios", { get: () => state.ratios });
-const statCols = () => (state.showRatios ? [W.total, W.ratio] : [W.stat]);
-const colsHtml = () => `<colgroup><col style="width:${W.rank}px"><col class="c-flex"><col class="c-flex"><col style="width:${state.showRatios ? W.total : W.mj}px">${
+const statCols = () => { const W = Wd(); return state.showRatios ? [W.total, W.ratio] : [W.stat]; };
+const colsHtml = (W = Wd()) => `<colgroup><col style="width:${W.rank}px"><col class="c-flex">${mobile() ? "" : `<col class="c-flex">`}<col style="width:${state.showRatios ? W.total : W.mj}px">${
   shown().map(() => statCols().map((w) => `<col style="width:${w}px">`).join("")).join("")}<col style="width:${W.toggle}px"></colgroup>`;
-const span = () => 5 + shown().length * statCols().length;
+const span = () => (mobile() ? 4 : 5) + shown().length * statCols().length;
 
 /* Totaux toujours affichés ; le ratio (sous-colonne « / match ») seulement si coché dans « Statistiques »,
    y compris dans la ligne dépliée. */
@@ -222,8 +227,10 @@ function rowHtml(e) {
   <tr class="row" tabindex="0" data-id="${esc(p.id)}" aria-expanded="${open}">
     <td class="rank${e.rank <= 3 ? " podium" : ""}">${e.rank}</td>
     <td><div class="player"><div class="player-text">
-      <span class="player-name">${esc(p.name)}</span><span class="player-meta">${esc(meta)}</span></div></div></td>
-    <td>${clubAndCountry(p)}</td>
+      <span class="player-name">${esc(p.name)}</span>${mobile()
+        ? `<span class="player-club">${clubCell(p.clubs)}${flag(p.flag, countryName(p))}</span>`
+        : `<span class="player-meta">${esc(meta)}</span>`}</div></div></td>
+    ${mobile() ? "" : `<td>${clubAndCountry(p)}</td>`}
     <td class="num mj" title="${esc(matchesTitle(p))}"><span class="v">${p.matches}</span></td>
     ${statCells(p)}
     <td><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></td>
@@ -234,7 +241,7 @@ function rowHtml(e) {
       ${p.breakdown.map((b) => `<tr class="${S.row(b, C) ? "" : "out"}">
         <td></td>
         <td><div class="league">${compIcon(b.comp)}<span class="league-name">${esc(C[b.comp]?.name || b.comp)}</span></div></td>
-        <td>${b.club ? clubCell([b.club]) : ""}</td>
+        ${mobile() ? "" : `<td>${b.club ? clubCell([b.club]) : ""}</td>`}
         <td class="num mj" title="${esc(matchesTitle(b))}"><span class="v">${b.matches}</span></td>
         ${statCells(b, true)}
         <td></td></tr>`).join("")}
@@ -256,14 +263,14 @@ function render() {
   const th = (x) => {
     const t = `<th class="num sortable${state.sort === x.metric ? " sorted" : ""}" scope="col">${btn(x.metric, x.label, `Trier par ${x.title}`)}</th>`;
     if (!state.showRatios) return t;
-    return t + `<th class="num sortable ratio-col${state.sort === "r-" + x.metric ? " sorted" : ""}" scope="col">${btn("r-" + x.metric, "/ match", `Trier par ${x.title} par match`)}</th>`;
+    return t + `<th class="num sortable ratio-col${state.sort === "r-" + x.metric ? " sorted" : ""}" scope="col">${btn("r-" + x.metric, mobile() ? "/m" : "/ match", `Trier par ${x.title} par match`)}</th>`;
   };
   $("#boards").innerHTML = `
   <section class="card">
     <table class="board${state.showRatios ? " with-ratios" : ""}">${colsHtml()}
       <thead>
-        <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th><th scope="col">Club · Nationalité</th>
-          <th class="num mj" scope="col" title="Matchs joués">Matchs</th>${shown().map(th).join("")}<th><span class="sr-only">Détail</span></th></tr>
+        <tr><th class="rank" scope="col">#</th><th scope="col">Joueur</th>${mobile() ? "" : `<th scope="col">Club · Nationalité</th>`}
+          <th class="num mj" scope="col" title="Matchs joués">${mobile() ? "MJ" : "Matchs"}</th>${shown().map(th).join("")}<th><span class="sr-only">Détail</span></th></tr>
       </thead>
       <tbody>${top.length ? top.map(rowHtml).join("") : `<tr class="empty"><td colspan="${span()}">Aucun joueur pour le moment.</td></tr>`}</tbody>
     </table>
@@ -379,3 +386,6 @@ async function main() {
 }
 
 main();
+
+/* Passage ordinateur ↔ mobile (rotation, redimensionnement) : on redessine le tableau. */
+mq.addEventListener("change", () => { if (state.data) render(); });

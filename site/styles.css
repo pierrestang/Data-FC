@@ -40,7 +40,6 @@ body {
   color: var(--fg);
   font: 400 14px/1.5 var(--font);
   -webkit-font-smoothing: antialiased;
-  min-width: 1280px; /* prototype ordinateur uniquement */
 }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
@@ -242,3 +241,39 @@ td.stat .v, td.stat .r, td.ratio-col .r { display: inline-block; min-width: 3ch;
 .board th.mj, .board td.mj { text-align: center !important; padding-left: 6px; padding-right: 6px; }
 td.mj .v { display: inline-block; min-width: 3ch; text-align: right; }
 .detail td.stat, .detail td.mj { text-align: center !important; }
+
+/* ——— Mobile (≤ 720 px) ——— */
+@media (max-width: 720px) {
+  .wrap { padding: 0 16px; }
+  .topbar-inner { height: 48px; }
+  .toolbar { height: auto; min-height: 36px; flex-wrap: wrap; gap: 4px 8px; padding: 4px 4px 4px 12px; margin: 14px 0 10px; }
+  .toolbar-left { gap: 6px; flex-wrap: wrap; min-width: 0; }
+  .toolbar .season { display: none; }
+  .menu-btn { height: 30px; }
+  .menu-panel { max-width: calc(100vw - 32px); }
+  .menu-panel label { height: 34px; font-size: 13px; }
+  .menu-panel.menu-left { min-width: 0; max-height: 60vh; }
+  /* Avec les ratios, 6 colonnes chiffrées : le tableau défile horizontalement dans sa carte */
+  .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .board.with-ratios { min-width: 520px; }
+  .board th, .board td { padding: 0 3px; }
+  .board th:first-child, .board td:first-child { padding-left: 10px; }
+  .board th:last-child, .board td:last-child { padding-right: 8px; }
+  .board th.sortable, .board td.stat, .board th.mj, .board td.mj { padding-left: 2px; padding-right: 2px; }
+  .board th.sorted, .board td.sorted, .board.with-ratios th.sorted, .board.with-ratios td.sorted { --in: 3px; }
+  .board thead th { font-size: 11.5px; }
+  .row > td { height: 52px; }
+  .row td.rank { font-size: 12px; }
+  td.stat .v { font-size: 13.5px; }
+  td.stat .v.on { font-size: 14px; }
+  .player-name { font-size: 13.5px; }
+  .player-club { gap: 6px; }
+  .player-club .club { gap: 5px; color: var(--fg-muted); font-size: 12px; min-width: 0; }
+  .player-club .club .crest, .player-club .club .crest-fallback { width: 14px; height: 14px; }
+  .player-club .flag { width: 16px; height: 12px; }
+  .chev { width: 14px; height: 14px; }
+  .league { padding-left: 22px; gap: 6px; }
+  .league::before { left: 6px; }
+  .detail td:first-child { padding-left: 4px; }
+  .foot { flex-direction: column; gap: 4px; padding-bottom: 32px; }
+}
