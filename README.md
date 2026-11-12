@@ -32,6 +32,7 @@ scraper/nightly.sh           mise à jour + publication (commit et push de site/
 .github/workflows/pages.yml  déploie site/ sur GitHub Pages à chaque push touchant site/
 scraper/cache/               clubs → logos, fiches joueurs ESPN (nationalité, poste, âge ; 30 jours)
 site/                        site statique : index.html, styles.css, app.js
+                             (changer le ?v= de index.html à chaque modif. de styles.css/app.js : force le rechargement)
 site/data/leaderboard.json   données publiées (écriture atomique)
 site/assets/flags|clubs/     SVG téléchargés une fois puis mis en cache
 logs/update.log              journal des mises à jour
