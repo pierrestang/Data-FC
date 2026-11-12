@@ -157,15 +157,15 @@ function matchesTitle(o) {
 /* Trois colonnes de stats. Mode « Totaux » : les totaux seuls. Mode « Ratios » : les trois ratios
    par match. La ligne dépliée donne totaux et ratios par compétition. */
 const STATS = [
-  { metric: "goals", label: "Buts", title: "buts" },
-  { metric: "assists", label: "Passes", title: "passes décisives" },
-  { metric: "ga", label: "Total", title: "buts + passes" },
+  { metric: "goals", label: "Buts", short: "Buts", title: "buts" },
+  { metric: "assists", label: "Passes", short: "Pass.", title: "passes décisives" },
+  { metric: "ga", label: "Total", short: "Tot.", title: "buts + passes" },
 ];
 /* Largeurs (px). En « Totaux + ratios », chaque stat a deux sous-colonnes (total | ratio),
    pour que la surbrillance du tri ne couvre que la partie choisie. */
 const W_DESK = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92, toggle: 36 };
 /* Mobile : colonne Club fusionnée sous le nom du joueur, colonnes chiffrées resserrées. */
-const W_MOB = { rank: 30, mj: 40, stat: 46, total: 42, ratio: 46, toggle: 22 };
+const W_MOB = { rank: 24, mj: 30, stat: 38, total: 30, ratio: 34, toggle: 16 };
 const mq = matchMedia("(max-width: 720px)");
 const mobile = () => mq.matches;
 const Wd = () => (mobile() ? W_MOB : W_DESK);
@@ -261,7 +261,7 @@ function render() {
   /* En-têtes : le nom trie par le total ; « / match » (sous-colonne ratio) trie par le ratio. */
   const btn = (key, label, title) => `<button type="button" class="${state.sort === key ? "active" : ""}" data-sort="${key}" title="${esc(title)}">${esc(label)}</button>`;
   const th = (x) => {
-    const t = `<th class="num sortable${state.sort === x.metric ? " sorted" : ""}" scope="col">${btn(x.metric, x.label, `Trier par ${x.title}`)}</th>`;
+    const t = `<th class="num sortable${state.sort === x.metric ? " sorted" : ""}" scope="col">${btn(x.metric, mobile() ? x.short : x.label, `Trier par ${x.title}`)}</th>`;
     if (!state.showRatios) return t;
     return t + `<th class="num sortable ratio-col${state.sort === "r-" + x.metric ? " sorted" : ""}" scope="col">${btn("r-" + x.metric, mobile() ? "/m" : "/ match", `Trier par ${x.title} par match`)}</th>`;
   };
