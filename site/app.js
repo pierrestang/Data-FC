@@ -1,6 +1,7 @@
 "use strict";
 
-const TOP = 10;
+const TOP = 20;   // rangs affichés par défaut
+const STEP = 10;  // rangs ajoutés par « Afficher plus »
 /* Colonnes triables : total brut ou ratio par match, pour chaque stat. */
 const SORTS = [
   { key: "goals", metric: "goals", ratio: false, label: "Buts" },
@@ -256,7 +257,7 @@ function render() {
   const sort = SORTS.find((x) => x.key === state.sort) || SORTS[0];
   const scoped = state.data.players.map((p) => inScope(p, S)).filter(Boolean);
   const { list } = ranking(scoped, sort);
-  // Rangs 1 à N (un ex æquo parfait au dernier rang reste affiché) ; « Afficher plus » ajoute 10 rangs.
+  // Rangs 1 à 20 (un ex æquo parfait au dernier rang reste affiché) ; « Afficher plus » ajoute 10 rangs.
   const top = list.filter((e) => e.rank <= state.limit);
   const more = list.length > top.length;
   /* En-têtes : le nom trie par le total ; « / match » (sous-colonne ratio) trie par le ratio. */
@@ -350,7 +351,7 @@ function bind() {
   $("#boards").addEventListener("click", (ev) => {
     const sb = ev.target.closest("[data-sort]");
     if (sb) { state.sort = sb.dataset.sort; state.limit = TOP; render(); return; }
-    if (ev.target.closest("[data-more]")) { state.limit += TOP; render(); return; }
+    if (ev.target.closest("[data-more]")) { state.limit += STEP; render(); return; }
     const r = ev.target.closest(".row");
     if (r) toggle(r.dataset.id);
   });

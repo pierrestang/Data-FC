@@ -118,7 +118,7 @@ et lancer `python3 scraper/update.py --html <fichier>`.
 - HTML/CSS/JS sans framework ni build : un fichier JSON statique suffit, rien à installer.
 - Geist + Geist Mono (Google Fonts), chiffres tabulaires alignés à droite, bordures horizontales
   seulement, mode clair par défaut avec bascule sombre mémorisée.
-- **Un seul tableau** (top 10 + « Afficher plus ») : rang, joueur (nom, poste, âge), club et
+- **Un seul tableau** (top 20 + « Afficher plus » par 10) : rang, joueur (nom, poste, âge), club et
   nationalité (drapeau + pays en français), matchs, puis Buts, Passes, Total (buts + passes).
   Totaux toujours affichés ; le menu à cases à cocher de la barre de filtre choisit les colonnes (Buts, Passes, Total ; au moins une) et ajoute en option une sous-colonne « / match » à droite
   de chaque total. La ligne dépliée montre totaux et ratios par compétition. Clic sur « Buts »,
