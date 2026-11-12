@@ -165,7 +165,7 @@ const STATS = [
    pour que la surbrillance du tri ne couvre que la partie choisie. */
 const W_DESK = { rank: 44, player: 220, club: 210, mj: 110, stat: 110, total: 92, ratio: 92, toggle: 36 };
 /* Mobile : colonne Club fusionnée sous le nom du joueur, colonnes chiffrées resserrées. */
-const W_MOB = { rank: 24, mj: 30, stat: 38, total: 30, ratio: 34, toggle: 16 };
+const W_MOB = { rank: 22, mj: 26, stat: 34, total: 26, ratio: 30, toggle: 14 };
 const mq = matchMedia("(max-width: 720px)");
 const mobile = () => mq.matches;
 const Wd = () => (mobile() ? W_MOB : W_DESK);
