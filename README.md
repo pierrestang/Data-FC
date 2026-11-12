@@ -5,6 +5,8 @@ Classements des meilleurs buteurs et passeurs des cinq grands championnats europ
 (Champions League, Europa League, Conference League), saison en cours.
 Prototype pour ordinateur uniquement.
 
+En ligne : https://pierrestang.github.io/Data-FC/
+
 ## Lancer
 
 ```sh
@@ -13,6 +15,7 @@ python3 scraper/update.py                  # mise à jour : FBref si accessible,
 python3 scraper/update.py --html page.html # import d'une page FBref enregistrée depuis le navigateur
 python3 scraper/make_demo_fixture.py && python3 scraper/update.py --html scraper/fixtures/demo_big5.html --demo
 scraper/launchd/install.sh                 # tâche nocturne à 00:00 (--remove pour la retirer)
+scraper/nightly.sh                         # ce que lance la tâche : mise à jour puis commit + push si les données ont changé
 ```
 
 ## Arborescence
@@ -24,6 +27,8 @@ scraper/sources/espn.py      API publiques ESPN (source automatique actuelle, 8 
 scraper/common.py            HTTP avec relances, codes pays → drapeaux
 scraper/make_demo_fixture.py page factice au balisage FBref, chiffres inventés
 scraper/launchd/             tâche launchd (minuit, heure locale) + script d'installation
+scraper/nightly.sh           mise à jour + publication (commit et push de site/data et scraper/cache)
+.github/workflows/pages.yml  déploie site/ sur GitHub Pages à chaque push touchant site/
 scraper/cache/               clubs → logos, fiches joueurs ESPN (nationalité, poste, âge ; 30 jours)
 site/                        site statique : index.html, styles.css, app.js
 site/data/leaderboard.json   données publiées (écriture atomique)
@@ -119,3 +124,5 @@ et lancer `python3 scraper/update.py --html <fichier>`.
   est surlignée. Tri par ratio : joueurs ayant joué au moins 40 % des matchs du plus assidu.
 - `launchd` sur le Mac (gratuit, natif) plutôt qu'un cron cloud : les IP de serveurs (GitHub Actions…)
   sont encore plus bloquées par FBref. Si le Mac dort à minuit, la tâche part au réveil.
+- Publication : le Mac collecte, GitHub ne fait qu'héberger. Après la mise à jour, `nightly.sh`
+  commite et pousse les données si elles ont changé ; le push redéploie GitHub Pages.

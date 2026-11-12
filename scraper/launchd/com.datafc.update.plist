@@ -5,8 +5,8 @@
   <key>Label</key><string>com.datafc.update</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/bin/python3</string>
-    <string>__ROOT__/scraper/update.py</string>
+    <string>/bin/sh</string>
+    <string>__ROOT__/scraper/nightly.sh</string>
   </array>
   <key>WorkingDirectory</key><string>__ROOT__</string>
   <!-- Chaque nuit à 00:00 (heure locale). Si le Mac dort, launchd lance la tâche au réveil. -->
