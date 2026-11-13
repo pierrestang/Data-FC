@@ -825,7 +825,7 @@
   "fallback": "assets/clubs/espn-397-fallback.png"
  },
  "espn-132350": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": "Berkhamsted Town F.C.",
   "logo": null
  },
@@ -1119,7 +1119,7 @@
   "wiki": null
  },
  "espn-21717": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": null
  },
  "espn-133832": {
@@ -1143,9 +1143,9 @@
   "logo": "assets/clubs/espn-22430.svg"
  },
  "espn-17888": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": "CD Laredo",
-  "logo": null
+  "logo": "assets/clubs/espn-17888.svg"
  },
  "espn-4438": {
   "checkedAt": 1794352773.709281,
@@ -1198,7 +1198,7 @@
   "fallback": "assets/clubs/espn-98-fallback.png"
  },
  "espn-21722": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": null
  },
  "espn-4515": {
@@ -1236,7 +1236,7 @@
   "logo": "assets/clubs/espn-18342.svg"
  },
  "espn-5424": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": null
  },
  "espn-6856": {
@@ -1250,7 +1250,7 @@
   "fallback": "assets/clubs/espn-3788-fallback.png"
  },
  "espn-133844": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": null
  },
  "espn-133845": {
@@ -1259,7 +1259,7 @@
   "logo": "assets/clubs/espn-133845.svg"
  },
  "espn-131474": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": null
  },
  "espn-3835": {
@@ -1378,7 +1378,7 @@
   "logo": "assets/clubs/espn-9705.svg"
  },
  "espn-6631": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": null
  },
  "espn-19233": {
@@ -1407,7 +1407,7 @@
   "fallback": "assets/clubs/espn-138-fallback.png"
  },
  "espn-20776": {
-  "checkedAt": 1794438359.87698,
+  "checkedAt": 1794611217.758602,
   "wiki": "CD Anaitasuna",
   "logo": null
  },
@@ -1420,5 +1420,20 @@
   "checkedAt": 1794438359.87698,
   "wiki": "CD Leganés",
   "logo": "assets/clubs/espn-17534.svg"
+ },
+ "espn-2737": {
+  "checkedAt": 1794611217.758602,
+  "wiki": "Albacete Balompié",
+  "logo": "assets/clubs/espn-2737.svg"
+ },
+ "espn-19288": {
+  "checkedAt": 1794611217.758602,
+  "wiki": "CDA Navalcarnero",
+  "logo": "assets/clubs/espn-19288.svg"
+ },
+ "espn-133837": {
+  "checkedAt": 1794611217.758602,
+  "wiki": "CD Tarancón",
+  "logo": "assets/clubs/espn-133837.png"
  }
 }
