@@ -825,8 +825,8 @@
   "fallback": "assets/clubs/espn-397-fallback.png"
  },
  "espn-132350": {
-  "checkedAt": 1795216125.6241899,
-  "wiki": "Berkhamsted Town F.C.",
+  "checkedAt": 1795478486.0030222,
+  "wiki": null,
   "logo": null
  },
  "espn-346": {
@@ -1119,7 +1119,7 @@
   "wiki": null
  },
  "espn-21717": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-133832": {
@@ -1198,7 +1198,7 @@
   "fallback": "assets/clubs/espn-98-fallback.png"
  },
  "espn-21722": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-4515": {
@@ -1236,7 +1236,7 @@
   "logo": "assets/clubs/espn-18342.svg"
  },
  "espn-5424": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-6856": {
@@ -1250,7 +1250,7 @@
   "fallback": "assets/clubs/espn-3788-fallback.png"
  },
  "espn-133844": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-133845": {
@@ -1259,7 +1259,7 @@
   "logo": "assets/clubs/espn-133845.svg"
  },
  "espn-131474": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-3835": {
@@ -1378,7 +1378,7 @@
   "logo": "assets/clubs/espn-9705.svg"
  },
  "espn-6631": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-19233": {
@@ -1407,8 +1407,8 @@
   "fallback": "assets/clubs/espn-138-fallback.png"
  },
  "espn-20776": {
-  "checkedAt": 1795216125.6241899,
-  "wiki": "CD Anaitasuna",
+  "checkedAt": 1795478486.0030222,
+  "wiki": null,
   "logo": null
  },
  "espn-3752": {
@@ -1437,7 +1437,7 @@
   "logo": "assets/clubs/espn-133837.png"
  },
  "espn-5535": {
-  "checkedAt": 1795216125.6241899,
+  "checkedAt": 1795478486.0030222,
   "wiki": null
  },
  "espn-5421": {
@@ -1464,5 +1464,13 @@
   "checkedAt": 1795216125.6241899,
   "wiki": null,
   "fallback": "assets/clubs/espn-245-fallback.png"
+ },
+ "espn-6827": {
+  "checkedAt": 1795478486.0030222,
+  "wiki": null
+ },
+ "espn-22437": {
+  "checkedAt": 1795478486.0030222,
+  "wiki": null
  }
 }
